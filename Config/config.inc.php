@@ -20,6 +20,10 @@ $GLOBALS["tachyon_config"]["protocol"] = "http";
 $GLOBALS["tachyon_config"]["data_url"] = $GLOBALS["tachyon_config"]["protocol"]."://".$GLOBALS["tachyon_config"]["platform_host"] .$GLOBALS["tachyon_config"]["data_directory"];
 $GLOBALS["tachyon_config"]["home_url"] = $GLOBALS["tachyon_config"]["protocol"]."://".$GLOBALS["tachyon_config"]["platform_host"].$GLOBALS["tachyon_config"]["platform_directory"];
 
+
+$GLOBALS["tachyon_config"]["log"] = true;
+$GLOBALS["tachyon_config"]["exception_page"] = true;
+
 // cookies config
 $GLOBALS["tachyon_config"]["http_only"] = true;
 $GLOBALS["tachyon_config"]["secure_cookies"] = true;

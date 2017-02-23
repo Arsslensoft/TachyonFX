@@ -23,6 +23,7 @@ class RouteController
      */
     protected $routes = array();
 
+
     /**
      * @var array Array of all named routes.
      */
@@ -111,12 +112,13 @@ class RouteController
      * @param string $method One of 5 HTTP Methods, or a pipe-separated list of multiple HTTP Methods (GET|POST|PATCH|PUT|DELETE)
      * @param string $route The route regex, custom regex must start with an @. You can use multiple pre-set regex filters, like [i:id]
      * @param mixed $target The target where this route should point to. Can be anything.
+     * @param \Models\Privileges $privileges The route privileges, permissions to access the target URL
      * @param string $name Optional name of this route. Supply if you want to reverse route this url in your application.
      * @throws Exception
      */
-    public function map($method, $route, $target, $name = null) {
+    public function map($method, $route, $target, $privileges , $name = null) {
 
-        $this->routes[] = array($method, $route, $target, $name);
+        $this->routes[] = array($method, $route, $target, $privileges, $name);
 
         if($name) {
             if(isset($this->namedRoutes[$name])) {
@@ -129,6 +131,7 @@ class RouteController
 
         return;
     }
+
 
     /**
      * Reversed routing
@@ -205,7 +208,7 @@ class RouteController
         }
 
         foreach($this->routes as $handler) {
-            list($methods, $route, $target, $name) = $handler;
+            list($methods, $route, $target, $privileges , $name) = $handler;
 
             $method_match = (stripos($methods, $requestMethod) !== false);
 
@@ -242,7 +245,9 @@ class RouteController
                 return array(
                     'target' => $target,
                     'params' => $params,
+                    'privileges' => $privileges,
                     'name' => $name
+
                 );
             }
         }
